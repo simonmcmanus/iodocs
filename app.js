@@ -265,6 +265,7 @@ function oauth2(req, res, next){
             var accessURL = apiConfig.oauth2.baseSite + apiConfig.oauth2.accessTokenURL;
             var basic_cred = apiKey + ':' + apiSecret;
             var encoded_basic = new Buffer(basic_cred).toString('base64');
+
             var http_method = (apiConfig.oauth2.authorizationHeader == 'Y') ? "POST" : "GET";
             var header = (apiConfig.oauth2.authorizationHeader == 'Y') ? {'Authorization' : 'Basic ' + encoded_basic} : '';
             var fillerpost = query.stringify({grant_type : "client_credentials", client_id : apiKey, client_secret : apiSecret});
@@ -306,6 +307,7 @@ function oauth2(req, res, next){
                         db.set(key + ':refreshToken', oauth2refresh_token, redis.print);
                         db.expire(key + ':accessToken', 1209600000);
                         db.expire(key + ':refreshToken', 1209600000);
+
                         res.send({'refresh': callbackURL});
                     });
                 }
@@ -894,9 +896,10 @@ function processRequest(req, res, next) {
         });
 
         if (requestBody) {
-            console.log('body is', typeof requestBody, requestBody)
             apiCall.on('error', function() {
-                console.log('error', arguments)
+                if (config.debug) {
+                    console.log('error', arguments);
+                }
             });
             apiCall.write(requestBody);
             apiCall.end();
