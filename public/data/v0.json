@@ -1,0 +1,377 @@
+{
+    "endpoints": [
+        {
+            "name": "AdBank Assets",
+            "methods": [
+                {
+                    "MethodName": "Assets List",
+                    "Synopsis": "List all assets, or search by fields specified using the query param.",
+                    "URI": "/assets",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Lucene search term (http://lucene.apache.org/core/2_9_4/queryparsersyntax.html), eg: `brand:BT Beam Uploads`. Limited to 3 levels of complexity. If not is specified will return a list of all the assets you have access to."
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Default": 1,
+                            "Location": "query",
+                            "Type": "int",
+                            "Description": "The page number, if there are more pages the more property will be true"
+                        },
+                        {
+                            "Name": "sort",
+                            "Required": "N",
+                            "Location": "query",
+                            "Type": "string",
+                            "Description": "Sort the results by a specified fields"
+                        },
+                        {
+                            "Name": "size",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": 10,
+                            "Type": "int",
+                            "Description": "Sort the results by a spec  ified fields"
+                        },
+                        {
+                            "Name": "order",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": "ASC",
+                            "Type": "string",
+                            "Description": "How to order the fields, ASC or DESC"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Get an Asset",
+                    "Synopsis": "Get an Asset by it`s id.",
+                    "URI": "/assets/:id",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Required": "Y",
+                            "Type": "int",
+                            "Description": "The ID of the asset you wish to fetch."
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Update an Asset",
+                    "URI": "/assets/:id",
+                    "HTTPMethod": "PUT",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The ID of the asset you wish to update."
+                        },
+                        {
+                            "Name": "meta",
+                            "Required": true,
+                            "Type": "json",
+                            "Description": "The new meta data for the asset you are updating."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AdBank Collections",
+            "methods": [
+                {
+                    "MethodName": "Collections List",
+                    "Synopsis": "List all collections you can access. Results can be searched using the query parameter.",
+                    "URI": "/collections",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Lucene search term (http://lucene.apache.org/core/2_9_4/queryparsersyntax.html), eg: `brand:BT Beam Uploads`. Limited to 3 levels of complexity. If not is specified will return a list of all the assets you have access to."
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Default": 1,
+                            "Location": "query",
+                            "Type": "int",
+                            "Description": "The page number, if there are more pages the more property will be true"
+                        },
+                        {
+                            "Name": "sort",
+                            "Required": "N",
+                            "Location": "query",
+                            "Type": "string",
+                            "Description": "Sort the results by a specified fields"
+                        },
+                        {
+                            "Name": "size",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": 10,
+                            "Type": "int",
+                            "Description": "Sort the results by a spec  ified fields"
+                        },
+                        {
+                            "Name": "order",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": "ASC",
+                            "Type": "string",
+                            "Description": "How to order the fields, ASC or DESC"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Get a Collection",
+                    "Synopsis": "Get an Collection by it`s id.",
+                    "URI": "/collections/:id",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Required": "Y",
+                            "Type": "int",
+                            "Description": "The ID of the collection you wish to fetch."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AdBank API Keys",
+            "methods": [
+                {
+                    "MethodName": "Create a new api key.",
+                    "Synopsis": "Create a folder for the specified project.",
+                    "URI": "/keys",
+                    "HTTPMethod": "POST",
+                    "parameters": [
+                        {
+                            "Name": "name",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The file name."
+                        },
+                        {
+                            "Name": "externalId",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The external ID used by the api."
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Revoke an API key.",
+                    "Synopsis": "Revoke an api key.",
+                    "URI": "/keys/:key/revoke",
+                    "HTTPMethod": "DELETE",
+                    "parameters": [
+                        {
+                            "Name": "key",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The API key you wish to revoke."
+                        },
+                        {
+                            "Name": "secret",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Location": "body",
+                            "Description": "The secret provided when you created the token."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AdBank Presentations",
+            "methods": [
+                {
+                    "MethodName": "Presentations List",
+                    "Synopsis": "Get presentations which you can access. When the query param is given it will filter the results.",
+                    "URI": "/presentations",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Lucene search term (http://lucene.apache.org/core/2_9_4/queryparsersyntax.html), eg: `brand:BT Beam Uploads`. Limited to 3 levels of complexity. If not is specified will return a list of all the assets you have access to."
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Default": 1,
+                            "Location": "query",
+                            "Type": "int",
+                            "Description": "The page number, if there are more pages the more property will be true"
+                        },
+                        {
+                            "Name": "sort",
+                            "Required": "N",
+                            "Location": "query",
+                            "Type": "string",
+                            "Description": "Sort the results by a specified fields"
+                        },
+                        {
+                            "Name": "size",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": 10,
+                            "Type": "int",
+                            "Description": "Sort the results by a spec  ified fields"
+                        },
+                        {
+                            "Name": "order",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": "ASC",
+                            "Type": "string",
+                            "Description": "How to order the fields, ASC or DESC"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Get a Presentation",
+                    "Synopsis": "Get an Presentation by it`s id.",
+                    "URI": "/presentations/:id",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Required": "Y",
+                            "Type": "int",
+                            "Description": "The ID of the presentation you wish to fetch."
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AdBank Projects",
+            "methods": [
+                {
+                    "MethodName": "Projects List",
+                    "Synopsis": "Get Projects which you can access. When the query param is given it will filter the results.",
+                    "URI": "/projects",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "query",
+                            "Required": "N",
+                            "Type": "string",
+                            "Description": "Lucene search term (http://lucene.apache.org/core/2_9_4/queryparsersyntax.html), eg: `brand:BT Beam Uploads`. Limited to 3 levels of complexity. If not is specified will return a list of all the assets you have access to."
+                        },
+                        {
+                            "Name": "page",
+                            "Required": "N",
+                            "Default": 1,
+                            "Location": "query",
+                            "Type": "int",
+                            "Description": "The page number, if there are more pages the more property will be true"
+                        },
+                        {
+                            "Name": "sort",
+                            "Required": "N",
+                            "Location": "query",
+                            "Type": "string",
+                            "Description": "Sort the results by a specified fields"
+                        },
+                        {
+                            "Name": "size",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": 10,
+                            "Type": "int",
+                            "Description": "Sort the results by a spec  ified fields"
+                        },
+                        {
+                            "Name": "order",
+                            "Required": "N",
+                            "Location": "query",
+                            "Default": "ASC",
+                            "Type": "string",
+                            "Description": "How to order the fields, ASC or DESC"
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Get a Project",
+                    "Synopsis": "Get an Project by it`s id.",
+                    "URI": "/projects/:id",
+                    "HTTPMethod": "GET",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Required": "Y",
+                            "Type": "int",
+                            "Description": "The ID of the project you wish to fetch."
+                        }
+                    ]
+                },
+                {
+                    "MethodName": "Update an existing project",
+                    "Synopsis": "Update an existing project.",
+                    "URI": "/projects/:id",
+                    "HTTPMethod": "PUT",
+                    "parameters": [
+                        {
+                            "Name": "id",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The ID of the project you wish to update."
+                        },
+                        {
+                            "Name": "request body",
+                            "Required": "Y",
+                            "Location": "body",
+                            "Type": "textarea",
+                            "Description": "The new project object stringified"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "AdBank Project Folders",
+            "methods": [
+                {
+                    "MethodName": "Create a folder for a given project",
+                    "Synopsis": "Create a folder for the specified project.",
+                    "URI": "/projects/:projectId/folder",
+                    "HTTPMethod": "POST",
+                    "parameters": [
+                        {
+                            "Name": "projectId",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The ID of the folder you wish to create."
+                        },
+                        {
+                            "Name": "name",
+                            "Required": "Y",
+                            "Type": "string",
+                            "Description": "The file name."
+                        },
+                        {
+                            "Name": "path",
+                            "Required": "N",
+                            "Type": "int",
+                            "Description": "The path for the file."
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
