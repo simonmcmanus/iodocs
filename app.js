@@ -550,7 +550,9 @@ function processRequest(req, res, next) {
         };
 
     if (['POST','DELETE','PUT'].indexOf(httpMethod) !== -1) {
-        var requestBody = JSON.stringify(params);
+        if(params.body) {
+            var requestBody = params.body;
+        }
     }
 
     if (apiConfig.oauth) {

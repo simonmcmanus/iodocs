@@ -854,3 +854,17 @@ div.clickable a {
     opacity: 0; /*workaround to make clickable in IE */
     filter: alpha(opacity=1); /*workaround to make clickable in IE */
 }
+
+.parameter textarea {
+  width: 100%;
+  height: 15em;
+}
+
+tr.noBottom  {
+  height: 4em;
+}
+tr.noBottom td,
+tr.noBottom th {
+  border-bottom: 0;
+  vertical-align: bottom;
+}

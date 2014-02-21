@@ -74,7 +74,7 @@
                             "Description": "The ID of the asset you wish to update."
                         },
                         {
-                            "Name": "meta",
+                            "Name": "body",
                             "Required": true,
                             "Type": "json",
                             "Description": "The new meta data for the asset you are updating."
