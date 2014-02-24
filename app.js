@@ -550,8 +550,11 @@ function processRequest(req, res, next) {
         };
 
     if (['POST','DELETE','PUT'].indexOf(httpMethod) !== -1) {
+
         if(params.body) {
             var requestBody = params.body;
+        }else {
+            var requestBody = query.stringify(params);
         }
     }
 
@@ -833,7 +836,9 @@ function processRequest(req, res, next) {
         }
 
         if (!options.headers['Content-Type'] && requestBody) {
-            options.headers['Content-Type'] = 'application/json';
+            //options.headers['Content-Type'] = 'application/json';
+            options.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
         }
 
         if (config.debug) {
@@ -903,8 +908,9 @@ function processRequest(req, res, next) {
                     console.log('error', arguments);
                 }
             });
-            apiCall.write(requestBody);
-            apiCall.end();
+            apiCall.end(requestBody, 'utf-8');
+//            apiCall.write(requestBody);
+            //apiCall.end();
         }
         else {
             apiCall.end();
